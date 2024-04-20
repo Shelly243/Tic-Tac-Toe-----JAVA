@@ -80,6 +80,9 @@ public class TicTacToe {
         }
 
         // Replay button setup
+        replayButton.setBackground(Color.darkGray); // Set the background color of the replay button
+        replayButton.setForeground(Color.white);
+        replayButton.setFocusable(false);
         replayButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 resetGame();
@@ -87,6 +90,7 @@ public class TicTacToe {
         });
         textPanel.add(replayButton, BorderLayout.EAST);
     }
+
 
     // Method to reset the game
     void resetGame() {
