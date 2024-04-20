@@ -27,6 +27,7 @@ public class TicTacToe {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        // Text label setup
         textLabel.setBackground(Color.darkGray);
         textLabel.setForeground(Color.white);
         textLabel.setFont(new Font("Arial", Font.BOLD, 50));
@@ -34,14 +35,17 @@ public class TicTacToe {
         textLabel.setText("Tic-Tac-Toe");
         textLabel.setOpaque(true);
 
+        // Text panel setup
         textPanel.setLayout(new BorderLayout());
         textPanel.add(textLabel);
         frame.add(textPanel, BorderLayout.NORTH);
 
+        // Board panel setup
         boardPanel.setLayout(new GridLayout(3, 3));
         boardPanel.setBackground(Color.darkGray);
         frame.add(boardPanel);
 
+        // Create buttons for the board
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < 3; c++) {
                 JButton tile = new JButton();
@@ -52,8 +56,8 @@ public class TicTacToe {
                 tile.setForeground(Color.white);
                 tile.setFont(new Font("Arial", Font.BOLD, 120));
                 tile.setFocusable(false);
-                // tile.setText(currentPlayer);
 
+                // Add action listener to handle button clicks
                 tile.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         if (gameOver) return;
@@ -74,8 +78,9 @@ public class TicTacToe {
         }
     }
     
+    // Method to check for a winner
     void checkWinner() {
-        //horizontal
+        //check horizontal
         for (int r = 0; r < 3; r++) {
             if (board[r][0].getText() == "") continue;
 
@@ -89,7 +94,7 @@ public class TicTacToe {
             }
         }
 
-        //vertical
+        //check vertical
         for (int c = 0; c < 3; c++) {
             if (board[0][c].getText() == "") continue;
             
@@ -103,7 +108,7 @@ public class TicTacToe {
             }
         }
 
-        //diagonally
+        //check diagonally
         if (board[0][0].getText() == board[1][1].getText() &&
             board[1][1].getText() == board[2][2].getText() &&
             board[0][0].getText() != "") {
@@ -114,7 +119,7 @@ public class TicTacToe {
             return;
         }
 
-        //anti-diagonally
+        //check anti-diagonally
         if (board[0][2].getText() == board[1][1].getText() &&
             board[1][1].getText() == board[2][0].getText() &&
             board[0][2].getText() != "") {
@@ -125,6 +130,7 @@ public class TicTacToe {
             return;
         }
 
+        // Check for a tie
         if (turns == 9) {
             for (int r = 0; r < 3; r++) {
                 for (int c = 0; c < 3; c++) {
@@ -134,13 +140,15 @@ public class TicTacToe {
             gameOver = true;
         }
     }
-
+    
+    // Method to set the winner
     void setWinner(JButton tile) {
         tile.setForeground(Color.green);
         tile.setBackground(Color.gray);
         textLabel.setText(currentPlayer + " is the winner!");
     }
-
+    
+    // Method to set a tie
     void setTie(JButton tile) {
         tile.setForeground(Color.orange);
         tile.setBackground(Color.gray);
