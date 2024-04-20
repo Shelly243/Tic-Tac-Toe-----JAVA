@@ -19,6 +19,8 @@ public class TicTacToe {
     boolean gameOver = false;
     int turns = 0;
 
+    JButton replayButton = new JButton("Replay");
+
     TicTacToe() {
         frame.setVisible(true);
         frame.setSize(boardWidth, boardHeight);
@@ -60,7 +62,8 @@ public class TicTacToe {
                 // Add action listener to handle button clicks
                 tile.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        if (gameOver) return;
+                        if (gameOver)
+                            return;
                         JButton tile = (JButton) e.getSource();
                         if (tile.getText() == "") {
                             tile.setText(currentPlayer);
@@ -71,11 +74,39 @@ public class TicTacToe {
                                 textLabel.setText(currentPlayer + "'s turn.");
                             }
                         }
-
                     }
                 });
             }
         }
+
+        // Replay button setup
+        replayButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                resetGame();
+            }
+        });
+        textPanel.add(replayButton, BorderLayout.EAST);
+    }
+
+    // Method to reset the game
+    void resetGame() {
+        // Reset game state
+        gameOver = false;
+        currentPlayer = playerX;
+        turns = 0;
+
+        // Clear board buttons
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < 3; c++) {
+                board[r][c].setText("");
+                board[r][c].setEnabled(true);
+                board[r][c].setForeground(Color.white);
+                board[r][c].setBackground(Color.darkGray);
+            }
+        }
+
+        // Reset text label
+        textLabel.setText("Tic-Tac-Toe");
     }
     
     // Method to check for a winner
